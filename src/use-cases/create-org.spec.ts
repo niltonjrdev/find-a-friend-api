@@ -1,14 +1,15 @@
 import {describe, it, expect, beforeEach} from "vitest";
 import { InMemoryOrgsRepository } from "../repositories/in-memory/in-memory-orgs-repository.ts";
 import { CreateOrgUseCase } from "./create-org.ts";
+import { OrgAlreadyExistsError } from "./errors/org-already-exists-error.ts";
 
 describe(CreateOrgUseCase, () => {
     let orgsRepository: InMemoryOrgsRepository;
-    let createOrgUseCase: CreateOrgUseCase;
+    let sut: CreateOrgUseCase;
 
     beforeEach(() => {
     orgsRepository = new InMemoryOrgsRepository();
-    createOrgUseCase = new CreateOrgUseCase(orgsRepository);
+    sut = new CreateOrgUseCase(orgsRepository);
   });
 
     it("should be able to create a new org", async () => {
@@ -26,7 +27,7 @@ describe(CreateOrgUseCase, () => {
       longitude: -46.70378601250786,
     };
 
-    const org = await createOrgUseCase.execute(orgData);
+    const org = await sut.execute(orgData);
 
     expect(org).toHaveProperty("id");
     expect(org.name).toBe(orgData.name);
@@ -49,7 +50,7 @@ describe(CreateOrgUseCase, () => {
       longitude: -46.70378601250786,
     };
 
-    await createOrgUseCase.execute(orgData);
+    await sut.execute(orgData);
 
     const orgData2 = {
       name: "Happy Org 2",
@@ -64,7 +65,7 @@ describe(CreateOrgUseCase, () => {
       longitude: -47.70378601250786,
     };
 
-    await expect(createOrgUseCase.execute(orgData2))
-      .rejects.toThrow("Org with this email already exists.");
+    await expect(sut.execute(orgData2))
+      .rejects.toThrow(OrgAlreadyExistsError);
   });
 });

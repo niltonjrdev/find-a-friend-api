@@ -1,5 +1,3 @@
-
-
 import type { OrgsRepository } from '../orgs-repository.ts';
 import type { Org } from '../../../generated/prisma/client.ts';
 import type { CreateOrgRequest } from '../orgs-repository.ts';

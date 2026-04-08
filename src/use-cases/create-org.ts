@@ -2,6 +2,7 @@
 import type { CreateOrgRequest, OrgsRepository } from "../repositories/orgs-repository.ts";
 import type { Org } from "../../generated/prisma/browser.ts";
 import { hash } from "bcryptjs";
+import { OrgAlreadyExistsError } from "./errors/org-already-exists-error.ts";
 
 export class CreateOrgUseCase {
   private orgsRepository: OrgsRepository;
@@ -15,7 +16,7 @@ export class CreateOrgUseCase {
   
 
     if (org) {
-      throw new Error("Org with this email already exists.");
+      throw new OrgAlreadyExistsError();
     }
 
     const passwordHash = await hash(data.password_hash, 6);
