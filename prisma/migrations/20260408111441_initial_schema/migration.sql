@@ -1,4 +1,7 @@
 -- CreateEnum
+CREATE TYPE "UserRole" AS ENUM ('ORG', 'USER');
+
+-- CreateEnum
 CREATE TYPE "PetType" AS ENUM ('DOG', 'CAT');
 
 -- CreateEnum
@@ -22,6 +25,7 @@ CREATE TABLE "Org" (
     "latitude" DOUBLE PRECISION NOT NULL,
     "longitude" DOUBLE PRECISION NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "userRole" "UserRole" NOT NULL DEFAULT 'ORG',
 
     CONSTRAINT "Org_pkey" PRIMARY KEY ("id")
 );

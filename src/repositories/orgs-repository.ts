@@ -1,5 +1,3 @@
-
-
 import type { Org } from "../../generated/prisma/browser.ts";
 
 export interface CreateOrgRequest {
