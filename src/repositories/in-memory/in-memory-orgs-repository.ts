@@ -1,6 +1,7 @@
-import type { OrgsRepository } from '../orgs-repository.ts';
-import type { Org } from '../../../generated/prisma/client.ts';
-import type { CreateOrgRequest } from '../orgs-repository.ts';
+import type { OrgsRepository } from "../orgs-repository.ts";
+import type { Org } from "../../../generated/prisma/client.ts";
+import type { CreateOrgRequest } from "../orgs-repository.ts";
+import { UserRole } from "../../../generated/prisma/browser.ts";
 
 export class InMemoryOrgsRepository implements OrgsRepository {
   private orgs: Org[] = [];
@@ -10,6 +11,7 @@ export class InMemoryOrgsRepository implements OrgsRepository {
       id: crypto.randomUUID(),
       ...data,
       complement: data.complement ?? null,
+      userRole: UserRole.ORG,
       created_at: new Date(),
     };
 
