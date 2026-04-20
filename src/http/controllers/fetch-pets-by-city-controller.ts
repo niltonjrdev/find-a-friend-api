@@ -23,5 +23,5 @@ export async function fetchPetsByCityController(request: FastifyRequest, reply: 
     age,
   });
 
-  return reply.status(200).send(pets);
+  return reply.status(200).send({ pets });
 }
