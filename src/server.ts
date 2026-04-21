@@ -1,5 +1,7 @@
 import { app } from "./app.ts";
 
-app.listen({ host: "0.0.0.0", port: 3333 }).then(() => {
-  console.log("HTTP running at port 3333");
+const port = Number(process.env.PORT) || 3333;
+
+app.listen({ host: "0.0.0.0", port }).then(() => {
+  console.log(`HTTP running at port ${port}`);
 });
