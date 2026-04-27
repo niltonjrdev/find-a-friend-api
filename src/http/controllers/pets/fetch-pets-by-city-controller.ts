@@ -1,5 +1,5 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
-import { makeFetchPetsByCityUseCase } from "../../use-cases/factories/make-fetch-pets-by-city.ts";
+import { makeFetchPetsByCityUseCase } from "../../../use-cases/factories/make-fetch-pets-by-city.ts";
 import { z } from "zod";
 
 export async function fetchPetsByCityController(request: FastifyRequest, reply: FastifyReply) {

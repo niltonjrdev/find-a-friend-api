@@ -5,6 +5,7 @@ import { env } from "node:process";
 import { orgsRoutes } from "./http/routes/orgs-route.ts";
 import { authenticateRoute } from "./http/routes/authenticate-route.ts";
 import { petsRoute } from "./http/routes/pets-route.ts";
+import { usersRoutes } from "./http/routes/users-route.ts";
 
 export const app = fastify();
 
@@ -19,3 +20,4 @@ app.register(fastifyJwt, {
 app.register(orgsRoutes);
 app.register(authenticateRoute);
 app.register(petsRoute);
+app.register(usersRoutes);

@@ -1,6 +1,7 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
-import { makeCreateOrgsUseCase } from "../../use-cases/factories/make-create-orgs.ts";
+import { makeCreateOrgsUseCase } from "../../../use-cases/factories/make-create-orgs.ts";
 import { z } from "zod";
+import { OrgAlreadyExistsError } from "../../../use-cases/errors/org-already-exists-error.ts";
 
 export async function createOrgController(request: FastifyRequest, reply: FastifyReply) {
   const createOrgUseCase = makeCreateOrgsUseCase();
@@ -39,10 +40,8 @@ export async function createOrgController(request: FastifyRequest, reply: Fastif
 
     return reply.status(201).send();
   } catch (err) {
-    if (err instanceof Error) {
-      return reply.status(400).send({
-        message: err.message,
-      });
+    if (err instanceof OrgAlreadyExistsError) {
+      return reply.status(409).send({ message: err.message });
     }
 
     throw err;

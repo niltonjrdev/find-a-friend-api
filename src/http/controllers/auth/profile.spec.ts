@@ -35,4 +35,27 @@ describe("Profile (E2E)", () => {
     expect(response.statusCode).toBe(200);
     expect(response.body.sub).toBeTruthy();
   });
+
+  it("should be able to get user profile", async () => {
+    await request(app.server).post("/users").send({
+      name: "Abby Boom",
+      email: "abbyboom@example.com",
+      password: "123456",
+      whatsapp: "11987561234",
+      city: "Sidney",
+      uf: "TC",
+      latitude: -23.68,
+      longitude: -46.7,
+    });
+
+    const authenticate = await request(app.server).post("/sessions/user").send({
+      email: "abbyboom@example.com",
+      password: "123456",
+    });
+
+    const response = await request(app.server).get("/me").set("Authorization", `Bearer ${authenticate.body.token}`);
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.sub).toBeTruthy();
+  });
 });

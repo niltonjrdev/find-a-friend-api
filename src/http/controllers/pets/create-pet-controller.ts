@@ -1,7 +1,7 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
-import { makeCreatePetUseCase } from "../../use-cases/factories/make-create-pet.ts";
+import { makeCreatePetUseCase } from "../../../use-cases/factories/make-create-pet.ts";
 import { z } from "zod";
-import { OrgNotFoundError } from "../../use-cases/errors/org-not-found-error.ts";
+import { OrgNotFoundError } from "../../../use-cases/errors/org-not-found-error.ts";
 
 export async function createPetController(request: FastifyRequest, reply: FastifyReply) {
   const createPetUseCase = makeCreatePetUseCase();
