@@ -1,7 +1,7 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
-import { makeGetPetDetailsUseCase } from "../../use-cases/factories/make-get-pet-details.ts";
+import { makeGetPetDetailsUseCase } from "../../../use-cases/factories/make-get-pet-details.ts";
 import { z } from "zod";
-import { PetNotFoundError } from "../../use-cases/errors/pet-not-found-error.ts";
+import { PetNotFoundError } from "../../../use-cases/errors/pet-not-found-error.ts";
 
 export async function getPetDetailsController(request: FastifyRequest, reply: FastifyReply) {
   const getPetDetailsUseCase = makeGetPetDetailsUseCase();

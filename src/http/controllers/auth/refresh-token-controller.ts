@@ -4,10 +4,12 @@ export async function refreshTokenController(request: FastifyRequest, reply: Fas
     try {
         await request.jwtVerify({ onlyCookie: true });
 
-        const token = await reply.jwtSign({}, { sign: { sub: request.user.sub } });
+        const { roles } = request.user;
+
+        const token = await reply.jwtSign({ roles }, { sign: { sub: request.user.sub } });
 
         const refreshToken = await reply.jwtSign(
-            { role: "ORG" }, 
+            { roles }, 
             { sign: 
                 { sub: request.user.sub, 
                     expiresIn: "7d" } 

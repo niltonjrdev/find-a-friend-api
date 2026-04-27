@@ -44,4 +44,36 @@ describe("Create Pet (E2E)", () => {
 
     expect(response.statusCode).toBe(201);
   });
+
+  it("should not be able to create a pet as a user", async () => {
+    await request(app.server).post("/users").send({
+      name: "Abby Boom",
+      email: "abbyboom@example.com",
+      password: "123456",
+      whatsapp: "11987561234",
+      city: "Sidney",
+      uf: "TC",
+      latitude: -23.68,
+      longitude: -46.7,
+    });
+
+    const authenticate = await request(app.server).post("/sessions/user").send({
+      email: "abbyboom@example.com",
+      password: "123456",
+    });
+
+    const response = await request(app.server)
+      .post("/pets")
+      .set("Authorization", `Bearer ${authenticate.body.token}`)
+      .send({
+        name: "Rex",
+        age: "2",
+        description: "Cachorro brincalhão",
+        type: "DOG",
+        size: "MEDIUM",
+        energy: "HIGH",
+      });
+
+    expect(response.statusCode).toBe(403);
+  });
 });

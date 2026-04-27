@@ -67,3 +67,18 @@ model Pet {
 
   ong Org @relation(fields: [ongId], references: [id])
 }
+
+model User {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password_hash String
+  whatsapp      String   @unique
+  city          String
+  uf            String
+  latitude      Float
+  longitude     Float
+  created_at    DateTime @default(now())
+
+  userRole UserRole @default(USER)
+}
